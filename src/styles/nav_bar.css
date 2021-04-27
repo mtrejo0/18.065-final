@@ -1,0 +1,21 @@
+.nav-ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    background: rgb(255, 123, 145);
+}
+
+.nav-li a {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+.nav-li a:hover {
+    background-color: #6b000e;
+    color: white !important;
+}

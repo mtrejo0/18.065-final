@@ -1,0 +1,19 @@
+.text-input {
+    margin: 8px;
+}
+
+.form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.poke-image {
+    margin: 32px;
+    max-width: 40vw;
+    max-height: 40vw;
+    padding: 8px;
+    border-radius: 32px;
+    box-shadow: 0px 0px 12px 6px #eee;
+}
