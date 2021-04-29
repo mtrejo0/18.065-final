@@ -19,7 +19,8 @@ class Stats extends React.Component {
 
   componentDidMount() {
     eventBus.on("image_submit", (data) => {
-      this.getStats()
+      console.log(data)
+      this.getStats(data.image)
     });
   }
 
@@ -27,10 +28,14 @@ class Stats extends React.Component {
     eventBus.remove("image_submit");
   }
 
-  getStats() {
+  getStats(file) {
     this.setState({loading: true})
+    
+    const data = new FormData() 
+    data.append('file', file)
+    console.warn(file);
     axios
-      .get(`http://localhost:5000//stats`)
+      .post(`http://localhost:5000/stats`, data, {})
       .then((res) => {
         this.setState({stats: res.data.stats})
         this.addMessage(res.data.message)

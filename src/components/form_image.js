@@ -9,25 +9,15 @@ class FormImage extends React.Component {
     constructor(props) {
       super(props);
       this.state = {file: null, messages: '', errors: ''};
-      this.handleSubmit = this.handleSubmit.bind(this);
       this.handleChange = this.handleChange.bind(this);
     }
     
     
-    handleSubmit(event) {
-      if (!this.validZipCode(this.state.value)) {
-        // this.addError('invalid zipcode')
-      }
-      eventBus.dispatch("zip_code_submit", { message: "zip code sent!", zip_code: this.state.value});
-      this.resetForm()
-      event.preventDefault();
-    }
-
     handleChange(event) {
       this.setState({
         file: URL.createObjectURL(event.target.files[0])
       })
-      eventBus.dispatch("image_submit", {image: this.state.file});
+      eventBus.dispatch("image_submit", {image: event.target.files[0]});
     }
 
 
