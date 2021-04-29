@@ -12,7 +12,7 @@ const Home = () => {
     
 
     return <div className='center'>
-        <h1>Whos that Pokemon!</h1>
+        <h1>Who's that Pokemon!</h1>
         <FormImage></FormImage>
         <Stats></Stats>
     </div>
