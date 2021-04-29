@@ -11,6 +11,7 @@ class Stats extends React.Component {
     this.state = {
       image: "",
       stats: [],
+      most_similar: "",
       loading: false,
       messages: [],
       errors: []
@@ -30,14 +31,15 @@ class Stats extends React.Component {
 
   getStats(file) {
     this.setState({loading: true})
-    
+
     const data = new FormData() 
     data.append('file', file)
     console.warn(file);
     axios
       .post(`http://localhost:5000/stats`, data, {})
       .then((res) => {
-        this.setState({stats: res.data.stats})
+        this.setState({stats: res.data.stats, most_similar: res.data.most_similar})
+        console.log(res)
         this.addMessage(res.data.message)
       })
       .catch((error) => {
@@ -74,6 +76,7 @@ class Stats extends React.Component {
           <p key={error} style={{color:"red"}}>{error}</p>
         ): null}
         {this.state.loading ? <p>Loading ...</p>: null}
+        <p>Most similar to <strong>{this.state.most_similar}</strong></p>
         {this.state.stats.length ?  
           this.state.stats.map( stat => <p>{stat.name}, {stat.value}</p>)
         : null}
