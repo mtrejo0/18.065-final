@@ -27,12 +27,19 @@ def predict_stats( filepath, models ):
     input_image = np.array( [input_image] )
     input_image = input_image / 255.0
 
-    hp_stat = round(255*models[0].predict(input_image)[0][0])
-    attack_stat = round(185*models[1].predict(input_image)[0][0])
-    defense_stat = round(230*models[2].predict(input_image)[0][0])
-    sp_attack_stat = round(194*models[3].predict(input_image)[0][0])
-    sp_defense_stat = round(230*models[4].predict(input_image)[0][0])
-    speed_stat = round(160*models[5].predict(input_image)[0][0])
+    max_hp = 255
+    max_attack = 185
+    max_defense = 230
+    max_sp_attack = 194
+    max_sp_defense = 230
+    max_speed = 160
+
+    hp_stat = min(max_hp, round(max_hp*models[0].predict(input_image)[0][0]) )
+    attack_stat = min(max_attack, round(max_attack*models[1].predict(input_image)[0][0]) )
+    defense_stat = min(max_defense, round(max_defense*models[2].predict(input_image)[0][0]) )
+    sp_attack_stat = min(max_sp_attack, round(max_sp_attack*models[3].predict(input_image)[0][0]) )
+    sp_defense_stat = min(max_sp_defense, round(max_sp_defense*models[4].predict(input_image)[0][0]) )
+    speed_stat = min(max_speed, round(max_speed*models[5].predict(input_image)[0][0]) )
 
     return [hp_stat, attack_stat, defense_stat, sp_attack_stat, sp_defense_stat, speed_stat]
 
@@ -57,7 +64,7 @@ def get_most_similar_poke( our_stats ):
         if( curr_dist < smallest_dist ):
             smallest_dist = curr_dist
             smallest_dist_index = index
-      
-    poke_name = pokemon_stats.iloc[smallest_dist_index]['name']
+    
+    similar_poke_row = pokemon_stats.iloc[smallest_dist_index]
 
-    return poke_name
+    return similar_poke_row

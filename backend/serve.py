@@ -13,7 +13,7 @@ model_list = load_models()
 def main():
 
     response = {
-        "message": "Whos that pokemon works!"
+        "message": "Who's that pokemon works!"
     }
     return jsonify(response)
 
@@ -23,7 +23,7 @@ def get_stats():
     try:
         f = request.files['file']
         f.save(f.filename)
-        os.rename(f.filename,'pokemon.png')
+        os.replace(f.filename,'pokemon.png')
         
         predicted_stats = predict_stats( 'pokemon.png', model_list )
         
@@ -35,15 +35,27 @@ def get_stats():
             {'name': 'sp_defense', 'value': str(predicted_stats[4])},
             {'name': 'speed', 'value': str(predicted_stats[5])}
         ]
-        
-        print(stats)
-        similar_poke_name = get_most_similar_poke(predicted_stats)
-        print(similar_poke_name)
+
+        similar_poke = get_most_similar_poke(predicted_stats)
+        similar_poke_name = similar_poke['name']
+        similar_poke_stats = [
+            {'name': 'hp', 'value': str(similar_poke['hp'])},
+            {'name': 'attack', 'value': str(similar_poke['attack'])},
+            {'name': 'defense', 'value': str(similar_poke['defense'])},
+            {'name': 'sp_attack', 'value': str(similar_poke['sp_attack'])},
+            {'name': 'sp_defense', 'value': str(similar_poke['sp_defense'])},
+            {'name': 'speed', 'value': str(similar_poke['speed'])}
+        ]
+
+        similar_poke_image_path = '../sample_images/' + str(similar_poke['pokedex_number']) + '.png'
+        print(similar_poke_image_path)
         
         response = {
             "message": "Your stats",
             "stats": stats,
-            "most_similar": str(similar_poke_name)
+            "most_similar": str(similar_poke_name),
+            "most_similar_stats": similar_poke_stats,
+            "most_similar_image_path": similar_poke_image_path
         }
         return jsonify(response)
     except Exception as e:
