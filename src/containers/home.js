@@ -13,8 +13,11 @@ const Home = () => {
 
     return <div className='center'>
         <h1>Who's that Pokemon!</h1>
-        <FormImage></FormImage>
-        <Stats></Stats>
+        <div className='home'>
+            <FormImage></FormImage>
+            <Stats></Stats>
+        </div>
+        
     </div>
 }
 

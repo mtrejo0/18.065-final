@@ -42,10 +42,10 @@ class FormImage extends React.Component {
   
     render() {
 
-      let pokemonImage = this.state.file ? <img src={this.state.file} alt='Pokemon' class='poke-image'/> : null
+      let pokemonImage = this.state.file ? <img src={this.state.file} alt='Pokemon' className='poke-image'/> : null
 
       return (
-        <div class='form'>
+        <div className='form'>
           {this.state.messages.length ? this.state.messages.map(
                 (message, i) => (
                   <li key={i}>{message}</li>

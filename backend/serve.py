@@ -1,9 +1,9 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_file
 from flask_cors import CORS
 from api import *
 import os  
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 CORS(app)
 
 
@@ -47,7 +47,7 @@ def get_stats():
             {'name': 'speed', 'value': str(similar_poke['speed'])}
         ]
 
-        similar_poke_image_path = '../sample_images/' + str(similar_poke['pokedex_number']) + '.png'
+        similar_poke_image_path = 'static/' + str(similar_poke['pokedex_number']) + '.png'
         print(similar_poke_image_path)
         
         response = {
@@ -57,6 +57,7 @@ def get_stats():
             "most_similar_stats": similar_poke_stats,
             "most_similar_image_path": similar_poke_image_path
         }
+        print(response)
         return jsonify(response)
     except Exception as e:
         return jsonify({"error": e}), 400

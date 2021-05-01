@@ -3,16 +3,19 @@ import axios from "axios";
 
 import eventBus from "../util/eventbus";
 
-
+import "../styles/stats.css"
 
 class Stats extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      image: "",
       stats: [],
       most_similar: "",
+      most_similar_stats: [],
+      most_similar_image_path: '',
       loading: false,
+      finished: false,
+      
       messages: [],
       errors: []
     };
@@ -20,7 +23,6 @@ class Stats extends React.Component {
 
   componentDidMount() {
     eventBus.on("image_submit", (data) => {
-      console.log(data)
       this.getStats(data.image)
     });
   }
@@ -34,13 +36,16 @@ class Stats extends React.Component {
 
     const data = new FormData() 
     data.append('file', file)
-    console.warn(file);
     axios
       .post(`http://localhost:5000/stats`, data, {})
       .then((res) => {
-        this.setState({stats: res.data.stats, most_similar: res.data.most_similar})
-        console.log(res)
-        this.addMessage(res.data.message)
+        this.setState({
+          stats: res.data.stats, 
+          most_similar: res.data.most_similar, 
+          most_similar_stats: res.data.most_similar_stats,
+          most_similar_image_path: res.data.most_similar_image_path,
+          finished: true
+        })
       })
       .catch((error) => {
         this.addError(error.response.data.error)
@@ -76,10 +81,19 @@ class Stats extends React.Component {
           <p key={error} style={{color:"red"}}>{error}</p>
         ): null}
         {this.state.loading ? <p>Loading ...</p>: null}
-        <p>Most similar to <strong>{this.state.most_similar}</strong></p>
-        {this.state.stats.length ?  
-          this.state.stats.map( stat => <p>{stat.name}, {stat.value}</p>)
-        : null}
+        {this.state.finished ? 
+          <div className='next'>
+            <div className='stats'>
+              <p>Image stats:</p>
+              {this.state.stats.map( stat => <p key={stat.name}><strong>{stat.name}</strong>, {stat.value}</p>)}
+            </div>
+            <div className='stats'>
+              <p>Stats most similar to <strong>{this.state.most_similar}</strong></p>
+              {this.state.most_similar_stats.map( stat => <p key={stat.name}><strong>{stat.name}</strong>, {stat.value}</p>)}
+            </div>
+            {/* {this.state.most_similar_image_path}
+            <img src={this.state.most_similar_image_path} alt='Pokemon' className='poke-image'/> */}
+          </div>: null}
       </div>
     );
   }
