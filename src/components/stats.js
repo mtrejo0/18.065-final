@@ -88,7 +88,7 @@ class Stats extends React.Component {
               {this.state.stats.map( stat => <p key={stat.name}><strong>{stat.name}</strong>, {stat.value}</p>)}
             </div>
             <div className='stats'>
-              <p>Stats most similar to <strong>{this.state.most_similar}</strong></p>
+              <p>Stats most similar to <a href={`https://bulbapedia.bulbagarden.net/wiki/${this.state.most_similar}_(Pokémon)`} target='_blank'><strong>{this.state.most_similar}</strong></a></p>
               {this.state.most_similar_stats.map( stat => <p key={stat.name}><strong>{stat.name}</strong>, {stat.value}</p>)}
             </div>
             {/* {this.state.most_similar_image_path}
