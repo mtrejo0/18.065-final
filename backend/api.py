@@ -33,13 +33,20 @@ def predict_stats( filepath, models ):
     max_sp_attack = 194
     max_sp_defense = 230
     max_speed = 160
+    
+    min_hp = 1
+    min_attack = 5
+    min_defense = 5
+    min_sp_attack = 10
+    min_sp_defense = 20
+    min_speed = 5
 
-    hp_stat = min(max_hp, round(max_hp*models[0].predict(input_image)[0][0]) )
-    attack_stat = min(max_attack, round(max_attack*models[1].predict(input_image)[0][0]) )
-    defense_stat = min(max_defense, round(max_defense*models[2].predict(input_image)[0][0]) )
-    sp_attack_stat = min(max_sp_attack, round(max_sp_attack*models[3].predict(input_image)[0][0]) )
-    sp_defense_stat = min(max_sp_defense, round(max_sp_defense*models[4].predict(input_image)[0][0]) )
-    speed_stat = min(max_speed, round(max_speed*models[5].predict(input_image)[0][0]) )
+    hp_stat = max( min_hp, min(max_hp, round(max_hp*models[0].predict(input_image)[0][0]) ) )
+    attack_stat = max( min_attack, min(max_attack, round(max_attack*models[1].predict(input_image)[0][0]) ) )
+    defense_stat = max( min_defense, min(max_defense, round(max_defense*models[2].predict(input_image)[0][0]) ) )
+    sp_attack_stat = max( min_sp_attack, min(max_sp_attack, round(max_sp_attack*models[3].predict(input_image)[0][0]) ) )
+    sp_defense_stat = max( min_sp_defense, min(max_sp_defense, round(max_sp_defense*models[4].predict(input_image)[0][0]) ) )
+    speed_stat = max( min_speed, min(max_speed, round(max_speed*models[5].predict(input_image)[0][0]) ) )
 
     return [hp_stat, attack_stat, defense_stat, sp_attack_stat, sp_defense_stat, speed_stat]
 
