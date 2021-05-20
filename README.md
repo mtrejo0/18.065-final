@@ -4,12 +4,12 @@
 
 ## Available Scripts
 
-In the project directory, you can run:
+In the project directory, to start the front end you can run:
 
-### `npm start`
+## `npm start`
 
 
-In another terminal, you can run:
+In another terminal, to start the backend you can run:
 
-### `cd backend`
-### `python3 serve.py`
+## `cd backend`
+## `python3 serve.py`
