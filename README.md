@@ -1,6 +1,6 @@
 # Who's that pokemon!
 
-[Demo Video](https://www.youtube.com/watch?v=J20-to4ZOPc).
+[Demo Video](https://www.youtube.com/watch?v=J20-to4ZOPc)
 
 ## Available Scripts
 
@@ -9,7 +9,7 @@ In the project directory, you can run:
 ### `npm start`
 
 
-In another terminal project directory, you can run:
+In another terminal, you can run:
 
 ### `cd backend`
 ### `python3 serve.py`
